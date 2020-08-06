@@ -151,21 +151,18 @@ struct ContentView: View {
     
     func generateQuestions() {
         let numArray = Array(1...maxNum)
-        let arr1 = numArray.shuffled()
-        let arr2 = numArray.shuffled()
-        var count = 0
         
         questionBank = [Question]()
         
-        for num1 in arr1 {
-            for num2 in arr2 {
-                if count < numQuestionsActual {
-                    questionBank.append(Question(num1: num1, num2: num2))
-                    count += 1
-                } else {
-                    break
-                }
+        for num1 in numArray {
+            for num2 in numArray {
+                questionBank.append(Question(num1: num1, num2: num2))
             }
+        }
+        
+        questionBank.shuffle()
+        if questionBank.count > numQuestionsActual {
+            questionBank = Array(questionBank[0...numQuestionsActual - 1])
         }
     }
 }
